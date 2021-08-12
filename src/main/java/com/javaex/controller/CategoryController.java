@@ -34,7 +34,6 @@ public class CategoryController {
 	public List<CategoryVo> getCateList(@PathVariable("id") String id){
 		System.out.println("카테-컨 -리스트가져오기 "+ id);
 		
-		
 		return categoryService.getCateList(id);
 	}
 	

@@ -21,10 +21,10 @@
 
 		<div id="content">
 			<ul id="admin-menu" class="clearfix">
-				<li class="tabbtn selected"><a
+				<li class="tabbtn"><a
 					href="${pageContext.request.contextPath}/${blogMap.blogVo.id}/admin/basic/"
 				>기본설정</a></li>
-				<li class="tabbtn"><a
+				<li class="tabbtn selected"><a
 					href="${pageContext.request.contextPath}/${blogMap.blogVo.id}/admin/category/"
 				>카테고리</a></li>
 				<li class="tabbtn"><a

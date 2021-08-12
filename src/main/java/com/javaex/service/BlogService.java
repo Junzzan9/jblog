@@ -15,8 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.dao.BlogDao;
 import com.javaex.dao.CategoryDao;
+import com.javaex.dao.PostDao;
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
+import com.javaex.vo.PostVo;
 
 @Service
 public class BlogService {
@@ -26,6 +28,9 @@ public class BlogService {
 
 	@Autowired
 	private CategoryDao categoryDao;
+	
+	@Autowired
+	private PostDao postDao;
 
 	public Map<String, Object> getBlog(String id) {
 		System.out.println("블다오 - getBlog " + id);
@@ -33,12 +38,23 @@ public class BlogService {
 		BlogVo blogVo = blogDao.selectBlog(id);
 
 		List<CategoryVo> cateList = categoryDao.selectCateList(id);
+		
+		
+		PostVo recentPostVo = postDao.selectPost();
+		int lastCateNo = recentPostVo.getCateNo();
+		System.out.println(lastCateNo);
+		System.out.println(recentPostVo);
+		
+		List<PostVo> postList = postDao.selectPostList(lastCateNo);
+		
 
 		Map<String, Object> blogMap = new HashMap<String, Object>();
 
 		blogMap.put("blogVo", blogVo);
 		blogMap.put("cateList", cateList);
-
+		blogMap.put("postList", postList);
+		blogMap.put("recentPostVo", recentPostVo);
+		
 		System.out.println("가져온 Vo " + blogVo);
 
 		return blogMap;

@@ -19,11 +19,18 @@
 	<select id="selectCateList" parameterType="String" resultType="CategoryVo">
 		<![CDATA[
 		
-		select cateNo,
-		       cateName,
-		       description,
-		       regDate
-		from category
+		select c.cateNo,
+        c.id,
+        c.cateName,
+        c.description,
+        c.regDate,
+        nvl(p.count,0) count
+		from category c left join 
+	                    (select cateno,
+	                    count(*) count
+	                    from post
+	                    group by cateNo) p 
+		on c.cateNo = p.cateNo
 		where id = #{id}	
 		order by cateNo desc	
 			

@@ -39,7 +39,7 @@ public class CategoryService {
 		CategoryVo categoryVo = categoryDao.selectCategory(cateNo);
 
 		int count = categoryVo.getCount();
-		if (count == 0) {
+		if (count != 0) {
 			return false;
 		} else {
 			categoryDao.deleteCate(cateNo);
