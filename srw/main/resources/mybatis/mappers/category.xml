@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="category">
+
+	<insert id="insertCate" parameterType="CategoryVo">
+		<![CDATA[
+		
+		insert into category
+		values ( seq_category_no.nextval ,
+				#{id} ,
+				'미분류' ,
+				'카테고리설명란 입니다.' ,
+			    to_char(sysdate,'yyyy-mm-dd') ) 
+		
+		]]>
+	
+	</insert>
+	
+	<select id="selectCateList" parameterType="String" resultType="CategoryVo">
+		<![CDATA[
+		
+		select cateNo,
+		       cateName,
+		       description,
+		       regDate
+		from category
+		where id = #{id}	
+		order by cateNo desc	
+			
+		]]>
+	
+	
+	</select>
+	
+	<insert id="insertCate2" parameterType="CategoryVo">
+		<selectKey keyProperty="cateNo" resultType="int" order="BEFORE">
+			<![CDATA[
+			select seq_category_no.nextval from dual
+			]]>
+		</selectKey>
+			<![CDATA[
+			insert
+			into category
+			values ( #{cateNo }, #{id }, #{cateName }, #{description }, SYSDATE )
+			]]>
+	</insert>
+	
+	
+	<select id="selectOne" parameterType="int" resultType="CategoryVo">
+		
+		<![CDATA[
+		
+		select c.cateNo,
+        c.id,
+        c.cateName,
+        c.description,
+        c.regDate,
+        nvl(p.count,0) count
+		from category c left join 
+	                    (select cateno,
+	                    count(*) count
+	                    from post
+	                    group by cateNo) p 
+		on c.cateNo = p.cateNo
+		where c.cateNo = #{cateNo}	
+			
+		]]>
+	
+	
+	</select>
+	
+	<delete id="deleteCate" parameterType="int">
+		
+		<![CDATA[
+		
+		delete from category
+		where cateNo = #{cateNo}
+			
+		]]>
+	
+	</delete>
+	
+</mapper>
