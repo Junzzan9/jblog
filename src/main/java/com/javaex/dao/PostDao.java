@@ -1,6 +1,7 @@
 package com.javaex.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class PostDao {
 		return sqlSession.insert("post.insertPost", postVo);
 	}
 
-	public List<PostVo> selectPostList(int cateNo) {
+	public List<PostVo> selectPostList1(Map<String, Object> map) {
 
-		return sqlSession.selectList("post.selectPostList", cateNo);
+		return sqlSession.selectList("post.selectPostList", map);
 	}
 
 	public PostVo selectrecentPost() {

@@ -43,7 +43,10 @@ public class PostService {
 		System.out.println("포서비-카테리"+cateList);
 		PostVo postVo = postDao.selectPost(postNo);
 		int cateNo = postVo.getCateNo();
-		List<PostVo> postList = postDao.selectPostList(cateNo);
+		Map<String, Object> listMap = new HashMap<String, Object>();
+		listMap.put("id", id);
+		listMap.put("cateNo", cateNo);
+		List<PostVo> postList = postDao.selectPostList1(listMap);
 		
 		Map<String, Object> blogMap = new HashMap<String, Object>();
 
@@ -61,7 +64,10 @@ public class PostService {
 		System.out.println("포서비스- 겟포스트리스트  "+id+""+cateNo);
 		BlogVo blogVo = blogDao.selectBlog(id);
 		List<CategoryVo> cateList = categoryDao.selectCateList(id);
-		List<PostVo> postList = postDao.selectPostList(cateNo);
+		Map<String, Object> listMap = new HashMap<String, Object>();
+		listMap.put("id", id);
+		listMap.put("cateNo", cateNo);
+		List<PostVo> postList = postDao.selectPostList1(listMap);
 		PostVo postVo = postDao.selectrecentPostincaTe(cateNo);
 		
 		Map<String, Object> blogMap = new HashMap<String, Object>();

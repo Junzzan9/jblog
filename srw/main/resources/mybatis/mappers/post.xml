@@ -17,17 +17,16 @@
 
 </insert>
 
-<select id="selectPostList" parameterType="int" resultType="PostVo">
+<select id="selectPostList" parameterType="Map" resultType="PostVo">
 
 	<![CDATA[
-		select postNo,
-		       cateNo,
-		       postTitle,
-		       postContent,
-		       regDate
-		from post
-		where cateNo= #{cateNo}
-		order by postno desc
+		select p.posttitle,p.cateno,p.postno,p.postcontent,p.regdate
+		from post p , category c , users u
+		where c.id = u. id
+		and p.cateno = c.cateno
+		and c.id= #{id}
+		and p.cateno = #{cateNo}
+		order by p.postno desc
 	]]>
 
 </select>
@@ -35,14 +34,14 @@
 <select id="selectrecentOne" resultType="PostVo">
 
 <![CDATA[
-select p.cateno,p.postcontent,p.postno,p.posttitle,p.regdate
-from post p ,(select  max(regdate) regdate
-              from post
-              
-              
-              
-              ) b
-where p.regdate = b.regdate
+	select 	 p.cateno
+			,p.postcontent
+			,p.postno
+			,p.posttitle
+			,p.regdate
+	from post p ,(select  max(regdate) regdate
+	              from post ) b
+	where p.regdate = b.regdate
 ]]>
 
 </select>
@@ -65,15 +64,18 @@ where p.regdate = b.regdate
 <select id="selectrecentPostincaTe" parameterType="int" resultType="PostVo">
 
 <![CDATA[
-select p.cateno,p.postcontent,p.postno,p.posttitle,p.regdate
-from post p ,(select  max(regdate) regdate
-              from post
-              where cateNo = #{cateNo}
-              
-              
-              ) b
-where p.regdate = b.regdate
-and cateNo = #{cateNo}
+
+	select 	p.cateno
+			,p.postcontent
+			,p.postno
+			,p.posttitle
+			,p.regdate
+	from post p ,(select  max(regdate) regdate
+	              from post
+	              where cateNo = #{cateNo}) b
+	where p.regdate = b.regdate
+	and cateNo = #{cateNo}
+
 ]]>
 
 </select>

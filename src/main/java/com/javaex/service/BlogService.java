@@ -45,7 +45,10 @@ public class BlogService {
 		System.out.println(lastCateNo);
 		System.out.println(recentPostVo);
 		
-		List<PostVo> postList = postDao.selectPostList(lastCateNo);
+		Map<String, Object> listMap = new HashMap<String, Object>();
+		listMap.put("id", id);
+		listMap.put("cateNo", lastCateNo);
+		List<PostVo> postList = postDao.selectPostList1(listMap);
 		
 
 		Map<String, Object> blogMap = new HashMap<String, Object>();
