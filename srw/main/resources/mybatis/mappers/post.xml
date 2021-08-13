@@ -33,6 +33,7 @@
 </select>
 
 <select id="selectrecentOne" resultType="PostVo">
+
 <![CDATA[
 select p.cateno,p.postcontent,p.postno,p.posttitle,p.regdate
 from post p ,(select  max(regdate) regdate
@@ -45,6 +46,38 @@ where p.regdate = b.regdate
 ]]>
 
 </select>
+
+<select id="selectOne" parameterType="int" resultType="PostVo">
+
+<![CDATA[
+
+		select 	postno
+				,cateno
+				,posttitle
+				,postcontent
+				,regdate
+		from post
+		where postNo = #{postNo }
+]]>
+
+</select>
+
+<select id="selectrecentPostincaTe" parameterType="int" resultType="PostVo">
+
+<![CDATA[
+select p.cateno,p.postcontent,p.postno,p.posttitle,p.regdate
+from post p ,(select  max(regdate) regdate
+              from post
+              where cateNo = #{cateNo}
+              
+              
+              ) b
+where p.regdate = b.regdate
+and cateNo = #{cateNo}
+]]>
+
+</select>
+
 
 
 </mapper>

@@ -24,9 +24,21 @@ public class PostDao {
 		return sqlSession.selectList("post.selectPostList", cateNo);
 	}
 
-	public PostVo selectPost() {
+	public PostVo selectrecentPost() {
 		
 		return sqlSession.selectOne("post.selectrecentOne");
+		
+	}
+	
+	public PostVo selectPost(int postNo) {
+		System.out.println("포다오 - 셀렉포스트");
+		
+		return sqlSession.selectOne("post.selectOne",postNo);
+	}
+	
+public PostVo selectrecentPostincaTe(int cateNo) {
+		
+		return sqlSession.selectOne("post.selectrecentPostincaTe",cateNo);
 		
 	}
 }

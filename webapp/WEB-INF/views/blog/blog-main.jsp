@@ -44,7 +44,7 @@
 					<ul id="cateList" class="text-left">
 
 						<c:forEach items="${blogMap.cateList}" var="categoryVo">
-							<li><a href="">${categoryVo.cateName}</a></li>
+							<li><a href="${pageContext.request.contextPath}/${blogMap.blogVo.id}/admin/post/getPostList?cateNo=${categoryVo.cateNo}">${categoryVo.cateName}</a></li>
 						</c:forEach>
 
 
@@ -55,22 +55,9 @@
 
 			<div id="post_area">
 
-				<div id="postBox" class="clearfix">
-					<div id="postTitle" class="text-left">
-						<strong>${blogMap.recentPostVo.postTitle }</strong>
-					</div>
-					<div id="postDate" class="text-left">
-						<strong>${blogMap.recentPostVo.regDate }</strong>
-					</div>
-					<div id="postNick">${blogMap.blogVo.userName}(${blogMap.blogVo.id})님</div>
-				</div>
-				<!-- //postBox -->
-
-				<div id="post">${blogMap.recentPostVo.postContent }</div>
-				<!-- //post -->
-
 				<!-- 글이 없는 경우 -->
-				<!-- 
+				<c:choose>
+				<c:when test="${empty blogMap.PostVo }">
 				<div id="postBox" class="clearfix">
 							<div id="postTitle" class="text-left"><strong>등록된 글이 없습니다.</strong></div>
 							<div id="postDate" class="text-left"><strong></strong></div>
@@ -79,8 +66,23 @@
 			    
 				<div id="post" >
 				</div>
-				-->
+				</c:when>
+				<c:otherwise>
+				<div id="postBox" class="clearfix">
+					<div id="postTitle" class="text-left">
+						<strong>${blogMap.PostVo.postTitle }</strong>
+					</div>
+					<div id="postDate" class="text-left">
+						<strong>${blogMap.PostVo.regDate }</strong>
+					</div>
+					<div id="postNick">${blogMap.blogVo.userName}(${blogMap.blogVo.id})님</div>
+				</div>
+				<!-- //postBox -->
 
+				<div id="post">${blogMap.PostVo.postContent }</div>
+				<!-- //post -->
+				</c:otherwise>
+				</c:choose>
 				<div id="list">
 					<div id="listTitle" class="text-left">
 						<strong>카테고리의 글</strong>
@@ -93,7 +95,7 @@
 
 						<c:forEach items="${blogMap.postList}" var="postVo">
 							<tr>
-								<td id="titles" class="text-left" data-postno="${postVo.postNo}"><a href="">${postVo.postTitle}</a></td>
+								<td id="titles" class="text-left" data-postno="${postVo.postNo}"><a href="${pageContext.request.contextPath}/${blogMap.blogVo.id}/admin/post/getPost?postNo=${postVo.postNo}">${postVo.postTitle}</a></td>
 								<td class="text-right">${postVo.regDate}</td>
 							</tr>
 						</c:forEach>

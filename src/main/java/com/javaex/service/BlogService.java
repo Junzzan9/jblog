@@ -40,7 +40,7 @@ public class BlogService {
 		List<CategoryVo> cateList = categoryDao.selectCateList(id);
 		
 		
-		PostVo recentPostVo = postDao.selectPost();
+		PostVo recentPostVo = postDao.selectrecentPost();
 		int lastCateNo = recentPostVo.getCateNo();
 		System.out.println(lastCateNo);
 		System.out.println(recentPostVo);
@@ -53,7 +53,7 @@ public class BlogService {
 		blogMap.put("blogVo", blogVo);
 		blogMap.put("cateList", cateList);
 		blogMap.put("postList", postList);
-		blogMap.put("recentPostVo", recentPostVo);
+		blogMap.put("PostVo", recentPostVo);
 		
 		System.out.println("가져온 Vo " + blogVo);
 
