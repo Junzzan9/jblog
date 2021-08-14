@@ -38,7 +38,7 @@ public class BlogService {
 		BlogVo blogVo = blogDao.selectBlog(id);
 
 		List<CategoryVo> cateList = categoryDao.selectCateList(id);
-		
+		//test
 		
 		PostVo recentPostVo = postDao.selectrecentPost();
 		int lastCateNo = recentPostVo.getCateNo();
