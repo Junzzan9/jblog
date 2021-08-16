@@ -42,12 +42,18 @@
 						<strong>카테고리</strong>
 					</div>
 					<ul id="cateList" class="text-left">
-
-						<c:forEach items="${blogMap.cateList}" var="categoryVo">
-							<li><a href="${pageContext.request.contextPath}/${blogMap.blogVo.id}/admin/post/getPostList?cateNo=${categoryVo.cateNo}">${categoryVo.cateName}</a></li>
-						</c:forEach>
-
-
+						<c:choose>
+							<c:when test="${empty blogMap.cateList }">
+								<strong>등록된 글이 없습니다.</strong>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${blogMap.cateList}" var="categoryVo">
+									<li><a
+										href="${pageContext.request.contextPath}/${blogMap.blogVo.id}/admin/post/getPostList?cateNo=${categoryVo.cateNo}"
+									>${categoryVo.cateName}</a></li>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
 			</div>
@@ -57,31 +63,34 @@
 
 				<!-- 글이 없는 경우 -->
 				<c:choose>
-				<c:when test="${empty blogMap.PostVo }">
-				<div id="postBox" class="clearfix">
-							<div id="postTitle" class="text-left"><strong>등록된 글이 없습니다.</strong></div>
-							<div id="postDate" class="text-left"><strong></strong></div>
+					<c:when test="${empty blogMap.PostVo }">
+						<div id="postBox" class="clearfix">
+							<div id="postTitle" class="text-left">
+								<strong>등록된 글이 없습니다.</strong>
+							</div>
+							<div id="postDate" class="text-left">
+								<strong></strong>
+							</div>
 							<div id="postNick"></div>
-				</div>
-			    
-				<div id="post" >
-				</div>
-				</c:when>
-				<c:otherwise>
-				<div id="postBox" class="clearfix">
-					<div id="postTitle" class="text-left">
-						<strong>${blogMap.PostVo.postTitle }</strong>
-					</div>
-					<div id="postDate" class="text-left">
-						<strong>${blogMap.PostVo.regDate }</strong>
-					</div>
-					<div id="postNick">${blogMap.blogVo.userName}(${blogMap.blogVo.id})님</div>
-				</div>
-				<!-- //postBox -->
+						</div>
 
-				<div id="post">${blogMap.PostVo.postContent }</div>
-				<!-- //post -->
-				</c:otherwise>
+						<div id="post"></div>
+					</c:when>
+					<c:otherwise>
+						<div id="postBox" class="clearfix">
+							<div id="postTitle" class="text-left">
+								<strong>${blogMap.PostVo.postTitle }</strong>
+							</div>
+							<div id="postDate" class="text-left">
+								<strong>${blogMap.PostVo.regDate }</strong>
+							</div>
+							<div id="postNick">${blogMap.blogVo.userName}(${blogMap.blogVo.id})님</div>
+						</div>
+						<!-- //postBox -->
+
+						<div id="post">${blogMap.PostVo.postContent }</div>
+						<!-- //post -->
+					</c:otherwise>
 				</c:choose>
 				<div id="list">
 					<div id="listTitle" class="text-left">
@@ -92,13 +101,25 @@
 							<col style="">
 							<col style="width: 20%;">
 						</colgroup>
-
-						<c:forEach items="${blogMap.postList}" var="postVo">
-							<tr>
-								<td id="titles" class="text-left" data-postno="${postVo.postNo}"><a href="${pageContext.request.contextPath}/${blogMap.blogVo.id}/admin/post/getPost?postNo=${postVo.postNo}">${postVo.postTitle}</a></td>
-								<td class="text-right">${postVo.regDate}</td>
-							</tr>
-						</c:forEach>
+						<c:choose>
+							<c:when test="${empty blogMap.postList }">
+								<tr>
+									<td id="titles" class="text-left" data-postno="${postVo.postNo}"><a href="">등록된 글이
+											없습니다.</a></td>
+									<td class="text-right"></td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${blogMap.postList}" var="postVo">
+									<tr>
+										<td id="titles" class="text-left" data-postno="${postVo.postNo}"><a
+											href="${pageContext.request.contextPath}/${blogMap.blogVo.id}/admin/post/getPost?postNo=${postVo.postNo}"
+										>${postVo.postTitle}</a></td>
+										<td class="text-right">${postVo.regDate}</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 
 
 					</table>
@@ -106,7 +127,7 @@
 				<!-- //list -->
 			</div>
 			<!-- //post_area -->
-		
+
 
 
 		</div>

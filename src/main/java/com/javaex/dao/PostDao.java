@@ -25,9 +25,9 @@ public class PostDao {
 		return sqlSession.selectList("post.selectPostList", map);
 	}
 
-	public PostVo selectrecentPost() {
+	public PostVo selectrecentPost(String id) {
 		
-		return sqlSession.selectOne("post.selectrecentOne");
+		return sqlSession.selectOne("post.selectrecentOne",id);
 		
 	}
 	

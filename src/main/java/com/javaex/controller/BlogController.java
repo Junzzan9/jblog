@@ -43,7 +43,9 @@ public class BlogController {
 		model.addAttribute("blogMap", blogMap);
 		System.out.println(blogMap);
 		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		if (userVo.getId() != id) {
+		String ssnid = userVo.getId();
+		System.out.println(ssnid+"    "+id);
+		if (!userVo.getId().equals(id)) {
 			return "redirect:/";
 		} else {
 			return "/blog/admin/blog-admin-basic";
@@ -60,7 +62,7 @@ public class BlogController {
 
 		blogService.modifyBlog(id, blogTitle, file);
 		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		if (userVo.getId() != id) {
+		if (!userVo.getId().equals(id)) {
 			return "redirect:/";
 		} else {
 			return "redirect:/{id}/admin/basic";
@@ -74,7 +76,7 @@ public class BlogController {
 
 		model.addAttribute("blogMap", blogMap);
 		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		if (userVo.getId() != id) {
+		if (!userVo.getId().equals(id)) {
 			return "redirect:/";
 		} else {
 			return "/blog/admin/blog-admin-cate";
@@ -90,7 +92,7 @@ public class BlogController {
 		
 		model.addAttribute("blogMap", blogMap);
 		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		if (userVo.getId() != id) {
+		if (!userVo.getId().equals(id)) {
 			return "redirect:/";
 		} else {
 			return "/blog/admin/blog-admin-write";

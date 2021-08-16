@@ -31,7 +31,7 @@
 
 </select>
 
-<select id="selectrecentOne" resultType="PostVo">
+<select id="selectrecentOne" parameterType="String" resultType="PostVo">
 
 <![CDATA[
 	select 	 p.cateno
@@ -40,7 +40,10 @@
 			,p.posttitle
 			,p.regdate
 	from post p ,(select  max(regdate) regdate
-	              from post ) b
+	              from (select c.id,p.regdate
+                  from post p , category c
+                  where p.cateno = c.cateno
+                  and c.id = #{id })) b
 	where p.regdate = b.regdate
 ]]>
 
